@@ -2,13 +2,13 @@ const { User, Thought, Reaction } = require('../models');
 
 const userController = { 
 
-    // #############################
-    // /api/users/
-    // #############################
+    // ############################################# //
+    // /api/users/                                   //
+    // ############################################# //
 
-    // -----------------------------
-    // GET /users
-    // -----------------------------
+    // --------------------------------------------- //
+    // GET /users                                    //
+    // --------------------------------------------- //
     getAllUsers(req, res) {
         // finds all user models
         User.find({})
@@ -20,9 +20,9 @@ const userController = {
         })
     },
 
-    // -----------------------------
-    // GET /users/:id
-    // -----------------------------
+    // --------------------------------------------- //
+    // GET /users/:id                                //
+    // --------------------------------------------- //
     getUserById({ params }, res) {
         User.findOne({ _id: params.id })
         // returns json info on the fields thoughts and friends
@@ -40,9 +40,9 @@ const userController = {
         }) 
     },
 
-    // -----------------------------
-    // POST /users
-    // -----------------------------  
+    // --------------------------------------------- //
+    // POST /users                                   //
+    // --------------------------------------------- //  
     createUser({ body }, res) {
         // create a new user object with information from the req body object
         User.create(body)
@@ -50,9 +50,9 @@ const userController = {
         .catch(err => res.status(500).json(err));
     },
 
-    // -----------------------------
-    // PUT /users/:id
-    // -----------------------------
+    // --------------------------------------------- //
+    // PUT /users/:id                                //
+    // --------------------------------------------- //
     updateUser({ params, body }, res ){ 
         User.findOneAndUpdate(
             // finds by id given in the link
@@ -75,9 +75,9 @@ const userController = {
         }) 
     },
 
-    // -----------------------------
-    // DELETE /users/:id
-    // -----------------------------    
+    // --------------------------------------------- //
+    // DELETE /users/:id                             //
+    // --------------------------------------------- //    
     deleteUser({ params }, res) {
         // finds a user by parameters given in the link and then deletes it
         User.findOneAndDelete(
@@ -96,18 +96,18 @@ const userController = {
         }) 
     },
 
-    // #############################
-    // /api/users/:userid/friends/:friendid
-    // #############################
+    // ############################################# //
+    // /api/users/:userid/friends/:friendid          //
+    // ############################################# //
 
-    // -----------------------------
-    // POST /api/users/:userid/friends/:friendid
-    // -----------------------------
+    // --------------------------------------------- //
+    // POST /api/users/:userid/friends/:friendid     //
+    // --------------------------------------------- //
 
     
-    // -----------------------------
-    // DELETE /api/users/:userid/friends/:friendid
-    // -----------------------------
+    // --------------------------------------------- //
+    // DELETE /api/users/:userid/friends/:friendid   //
+    // --------------------------------------------- //
 
 
 
