@@ -25,6 +25,7 @@ const userController = {
     // -----------------------------
     getUserById({ params }, res) {
         User.findOne({ _id: params.id })
+        // returns json info on the fields thoughts and friends
         .populate('_id', 'thoughts friends')
         .then(dbUserData => {
             if (!dbUserData) {
@@ -39,11 +40,16 @@ const userController = {
         }) 
     },
 
-
     // -----------------------------
     // POST /users
     // -----------------------------  
-    
+    createUser({ body }, res) {
+        // create a new user object with information from the req body object
+        User.create(body)
+        .then(dbUserData => res.json(dbUserData))
+        .catch(err => res.status(500).json(err));
+    },
+
     // -----------------------------
     // PUT /users/:id
     // -----------------------------
