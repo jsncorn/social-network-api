@@ -108,15 +108,38 @@ deleteThought({ params }, res) {
         console.log(err);
         res.status(500).json(err);
     })
-}
+},
 
 
 // #############################
 // /api/thoughts/:thoughtid/reactions
 // #############################
 
-
-//post a reaction and push reaction to thought reaction array
+// -----------------------------
+// POST /thoughts/:id/reactions
+// -----------------------------
+addReaction({ params, body }, res) {
+    Thought.findOneAndUpdate(
+        // finds thought with id in link params :id        
+        { _id: params.thoughtId},
+        // adds new reactions field with the body set as reaction text
+        { $addToSet: { reactions: body }},
+        // return document when applied
+        { new: true }
+    )
+    .then(dbThoughtData => {
+        if(!dbThoughtData) {
+            res.status(404).json({ message: "No thoughts with this ID found"});
+            return;
+        }
+        //prints info given from thoughtdata
+        res.json(dbThoughtData);
+    })
+    .catch((err) => {
+        console.log(err);
+        res.status(500).json(err);
+    })
+},
 
 //delete a reaction and pull reaction from thought reaction array
 
