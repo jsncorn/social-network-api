@@ -103,7 +103,24 @@ const userController = {
     // --------------------------------------------- //
     // POST /api/users/:userid/friends/:friendid     //
     // --------------------------------------------- //
-
+    addFriend({ params }, res) {
+        User.findOneAndUpdate(
+            { _id: params.userId },
+            { $addToSet: { friends: params.friendId }},
+            { new: true }
+        )
+        .then(dbUserData => {
+            if (!dbUserData) {
+                res.status(404).json({ message: "No users found with this ID"});
+                return;
+            }
+            res.json(dbUserData);
+        })
+        .catch(err => {
+            console.log(err);
+            res.status(400).json(err);
+        }) 
+    }
     
     // --------------------------------------------- //
     // DELETE /api/users/:userid/friends/:friendid   //
