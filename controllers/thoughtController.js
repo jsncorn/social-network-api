@@ -2,11 +2,9 @@ const { User, Thought, Reaction } = require('../models');
 
 const thoughtController = {
 
-/*
-=============================
-/api/thoughts
-=============================
-*/
+// #############################
+// /api/thoughts/
+// #############################
 
 //get all thoughts
 
@@ -15,11 +13,11 @@ const thoughtController = {
 //post a new thought and push created thought id to
 //associated user's thougths array field
 
-/*
-=============================
-/ap/thoughts/:thoughtid/reactions
-=============================
-*/
+
+// #############################
+// /api/thoughts/:thoughtid/reactions
+// #############################
+
 
 //post a reaction and push reaction to thought reaction array
 
