@@ -23,9 +23,23 @@ const userController = {
     // -----------------------------
     // GET /users/:id
     // -----------------------------
+    getUserById({ params }, res) {
+        User.findOne({ _id: params.id })
+        .populate('_id', 'thoughts friends')
+        .then(dbUserData => {
+            if (!dbUserData) {
+                res.status(404).json({ message: "No users found with this ID"});
+                return;
+            }
+            res.json(dbUserData);
+        })
+        .catch(err => {
+            console.log(err);
+            res.status(400).json(err);
+        }) 
+    },
 
 
-    
     // -----------------------------
     // POST /users
     // -----------------------------  
