@@ -19,11 +19,29 @@ getAllThoughts(req, res) {
         console.log(err);
         res.status(500).json(err);
     })
-}
+},
 
 // -----------------------------
 // GET /thoughts/:id
 // -----------------------------
+getThoughtById({ params }, res) {
+    //find one with _id that matches request parameter 
+    Thought.findOne({ _id: params.id })
+    //checks if the thought id exists, otherwise it throws an error
+    .then((dbThoughtData) => {
+        if(!dbThoughtData) {
+            res.status(404).json({ message: "No thoughts with this ID found"});
+            return;
+        }
+        //prints info given from thoughtdata
+        res.json(dbThoughtData);
+    })
+    .catch((err) => {
+        console.log(err);
+        res.status(500).json(err);
+    })
+}
+
 
 
 
