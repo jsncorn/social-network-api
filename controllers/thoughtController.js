@@ -40,14 +40,36 @@ getThoughtById({ params }, res) {
         console.log(err);
         res.status(500).json(err);
     })
-}
+},
+
+// -----------------------------
+// POST /thoughts/
+// -----------------------------
+createThought({ body }, res) {
+    //create a new Thought model using request body
+    Thought.create(body)
+    .then(dbThoughtData => {
+        User.findOneAndUpdate(
+            // find user by id 
+            { _id: body.userId },
+            // push new thought to user's thoughts field
+            { $push: { thoughts: dbThoughtData._id }},
+            // return document when applied
+            { new : true }
+        )
+    })
+    .catch(err => res.status(400).json(err));
+},
+
+// -----------------------------
+// PUT /thoughts/:id
+// -----------------------------
 
 
+// -----------------------------
+// DELETE /thoughts/:id
+// -----------------------------
 
-
-
-//post a new thought and push created thought id to
-//associated user's thougths array field
 
 
 // #############################
