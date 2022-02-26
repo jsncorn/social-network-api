@@ -78,9 +78,23 @@ const userController = {
     // -----------------------------
     // DELETE /users/:id
     // -----------------------------    
-    
-
-
+    deleteUser({ params }, res) {
+        // finds a user by parameters given in the link and then deletes it
+        User.findOneAndDelete(
+            { _id: params.id }
+        )
+        .then(dbUserData => {
+            if (!dbUserData) {
+                res.status(404).json({ message: "No users found with this ID"});
+                return;
+            }
+            res.json(dbUserData);
+        })
+        .catch(err => {
+            console.log(err);
+            res.status(400).json(err);
+        }) 
+    },
 
     // #############################
     // /api/users/:userid/friends/:friendid
