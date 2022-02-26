@@ -85,12 +85,30 @@ updateThought( {params, body}, res) {
         console.log(err);
         res.status(500).json(err);
     })
+},
+
+// -----------------------------
+// DELETE /thoughts/:id 
+// -----------------------------
+deleteThought({ params }, res) {
+    // using link params, gets id, and finds thought matching
+    Thought.findOneAndDelete({ _id: params.id })
+    .then(dbThoughtData => {
+        // update user's owned thought array
+        User.findOneAndUpdate(
+            //grabs the associated user name from the thought and matches
+            { username: dbThoughtData.username },
+            //removes the thought with the matching id from params above
+            { $pull : { thoughts: params.id }}
+        )
+        // json to confirm thought deletion
+        .then(() => res.json({ message: 'Thought deleted successfully' }))
+    })
+    .catch((err) => {
+        console.log(err);
+        res.status(500).json(err);
+    })
 }
-
-// -----------------------------
-// DELETE /thoughts/:id
-// -----------------------------
-
 
 
 // #############################
