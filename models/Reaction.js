@@ -21,7 +21,7 @@ const reactionSchema = new Schema({
         type: Date,
         default: Date.now,
         get() {
-            return `${date.toLocaleString([], {
+            return `${Date.toLocaleString([], {
                 month: "long",
                 day: "numeric",
                 year: "numeric",

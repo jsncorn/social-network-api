@@ -79,6 +79,20 @@ const thoughtController = {
                         new: true
                     }
                 )
+                .then((dbThoughtData2) => {
+                    if (!dbThoughtData2) {
+                        res.status(404).json({
+                            message: "Successfully added"
+                        });
+                        return;
+                    }
+                    //prints info given from thoughtdata
+                    res.json(dbThoughtData2);
+                })
+                .catch((err) => {
+                    console.log(err);
+                    res.status(500).json(err);
+                })
             })
             .catch(err => res.status(400).json(err));
     },
