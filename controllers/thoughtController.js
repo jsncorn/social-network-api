@@ -64,7 +64,28 @@ createThought({ body }, res) {
 // -----------------------------
 // PUT /thoughts/:id
 // -----------------------------
-
+updateThought( {params, body}, res) {
+    Thought.findOneAndUpdate(
+        // find thought id by id in params
+        { _id: params.id },
+        // update with text from body
+        body,
+        // return document when applied
+        { new: true }
+    )
+    .then(dbThoughtData => {
+        if(!dbThoughtData) {
+            res.status(404).json({ message: "No thoughts with this ID found"});
+            return;
+        }
+        //prints info given from thoughtdata
+        res.json(dbThoughtData);
+    })
+    .catch((err) => {
+        console.log(err);
+        res.status(500).json(err);
+    })
+}
 
 // -----------------------------
 // DELETE /thoughts/:id
