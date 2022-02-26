@@ -141,8 +141,31 @@ addReaction({ params, body }, res) {
     })
 },
 
-//delete a reaction and pull reaction from thought reaction array
-
-
-
+// -----------------------------
+// DELETE /thoughts/:thoughtid/reaction
+// -----------------------------
+deleteReaction({ params, body }, res) {
+    Thought.findOneAndUpdate(
+        // finds a thought with the id from link
+        { _id: params.thoughtId },
+        // removes a reaction with the reaction id provided by json
+        { $pull: { reactions: {reactionId: body.reactionId }}},
+        // return document when applied
+        { new : true }
+    )
+    .then(dbThoughtData => {
+        if(!dbThoughtData) {
+            res.status(404).json({ message: "No thoughts with this ID found"});
+            return;
+        }
+        //prints info given from thoughtdata
+        res.json(dbThoughtData);
+    })
+    .catch((err) => {
+        console.log(err);
+        res.status(500).json(err);
+    })
 }
+}
+
+module.exports = thoughtController;
