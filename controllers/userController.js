@@ -78,7 +78,7 @@ const userController = {
                 body,
                 // returns page when applied
                 {
-                    new: true
+                    new: true, runValidators: true
                 }
             )
             .then(dbUserData => {
@@ -144,7 +144,7 @@ const userController = {
                 },
                 // return when applied
                 {
-                    new: true
+                    new: true, runValidators: true
                 }
             )
             .then(dbUserData => {
@@ -167,7 +167,7 @@ const userController = {
                         },
                         // return wehn applied
                         {
-                            new: true
+                            new: true, runValidators: true
                         }
                     )
                     .then(dbFriendData => {
@@ -209,7 +209,7 @@ const userController = {
                 },
                 // return when applied
                 {
-                    new: true
+                    new: true, runValidators: true
                 }
             )
             .then(dbUserData => {
@@ -232,7 +232,7 @@ const userController = {
                         },
                         // return when applied
                         {
-                            new: true
+                            new: true, runValidators: true
                         }
                     )
                     .then(dbFriendData => {

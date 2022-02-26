@@ -177,7 +177,7 @@ const thoughtController = {
                 },
                 // return document when applied
                 {
-                    new: true
+                    new: true, runValidators: true
                 }
             )
             .then(dbThoughtData => {
@@ -218,7 +218,7 @@ const thoughtController = {
                 },
                 // return document when applied
                 {
-                    new: true
+                    new: true, runValidators: true
                 }
             )
             .then(dbThoughtData => {
