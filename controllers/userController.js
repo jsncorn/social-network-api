@@ -53,11 +53,32 @@ const userController = {
     // -----------------------------
     // PUT /users/:id
     // -----------------------------
+    updateUser({ params, body }, res ){ 
+        User.findOneAndUpdate(
+            // finds by id given in the link
+            { _id: params.id },
+            // posts with info given by the json req
+            body,
+            // returns page when applied
+            { new: true}
+        )
+        .then(dbUserData => {
+            if (!dbUserData) {
+                res.status(404).json({ message: "No users found with this ID"});
+                return;
+            }
+            res.json(dbUserData);
+        })
+        .catch(err => {
+            console.log(err);
+            res.status(400).json(err);
+        }) 
+    },
 
     // -----------------------------
     // DELETE /users/:id
     // -----------------------------    
-
+    
 
 
 
